@@ -1,3 +1,5 @@
+import sys
+
 import numpy as np
 import pickle as pkl
 import networkx as nx
@@ -21,7 +23,12 @@ def load_data(dataset):
     names = ['x', 'y', 'tx', 'ty', 'allx', 'ally', 'graph']
     objects = []
     for i in range(len(names)):
-        objects.append(pkl.load(open("data/ind.{}.{}".format(dataset, names[i]))))
+        with open("data/ind.{}.{}".format(dataset, names[i]), 'rb') as f:
+            if sys.version_info > (3, 0):
+                objects.append(pkl.load(f, encoding='latin1'))
+            else:
+                objects.append(pkl.load(f))
+
     x, y, tx, ty, allx, ally, graph = tuple(objects)
     test_idx_reorder = parse_index_file("data/ind.{}.test.index".format(dataset))
     test_idx_range = np.sort(test_idx_reorder)

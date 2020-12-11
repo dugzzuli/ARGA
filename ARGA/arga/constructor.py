@@ -68,10 +68,13 @@ def format_data(data_name):
     adj_label = adj_train + sp.eye(adj_train.shape[0])
     adj_label = sparse_to_tuple(adj_label)
     items = [adj, num_features, num_nodes, features_nonzero, pos_weight, norm, adj_norm, adj_label, features, true_labels, train_edges, val_edges, val_edges_false, test_edges, test_edges_false, adj_orig]
-    feas = {}
-    for item in items:
-        # item_name = [ k for k,v in locals().iteritems() if v == item][0]
-        feas[retrieve_name(item)] = item
+    feas = {
+        "adj":adj, "num_features":num_features, "num_nodes":num_nodes, "features_nonzero":features_nonzero, "pos_weight":pos_weight, "norm":norm, "adj_norm":adj_norm, "adj_label":adj_label, "features":features, "true_labels":true_labels,
+        "train_edges":train_edges, "val_edges":val_edges, "val_edges_false":val_edges_false, "test_edges":test_edges, "test_edges_false":test_edges_false, "adj_orig":adj_orig
+    }
+    # for item in items:
+    #     # item_name = [ k for k,v in locals().iteritems() if v == item][0]
+    #     feas[retrieve_name(item)] = item
 
 
     return feas
